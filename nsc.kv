@@ -1,0 +1,250 @@
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+# Now you can simply Mix the `BackgroundColor` class with almost
+# any other widget... to give it a background.
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+    # Default the background color for this label
+    # to r 0, g 0, b 0, a 0
+# Use the BackgroundLabel any where in your kv code like below
+dot:
+    text_out: text_out
+    btn_scr:btn_scr
+    btn_des:btn_des
+    textinput1: text_input1
+    image_tag: image_tag
+
+    Image:
+        id:image_tag
+        source: "black.png"
+        allow_stretch: True
+        size_hint:0.7,0.4
+        pos_hint:{"x":0.07,"top":0.95}
+
+    BackgroundLabel:
+        id:border_right
+        size_hint: 0.05,1
+        pos_hint: {"x":0, "top":1}
+        background_color: 0.5, 0.5, 0, 1
+    BackgroundLabel:
+        id:border_left
+        size_hint: 0.05,1
+        pos_hint: {"x":0.95, "top":1}
+        background_color: 0.5, 0.5, 0, 1
+    BackgroundLabel:
+        id:border_top
+        size_hint: 1,0.04
+        pos_hint: {"x":0, "top":1}
+        background_color: 0.5, 0.5, 0, 1
+    BackgroundLabel:
+        id:border_bottm
+        size_hint: 1,0.04
+        pos_hint: {"x":0, "top":0.0388}
+        background_color: 0.5, 0.5, 0, 1
+    BackgroundLabel:
+        id:border_mid
+        size_hint: 1,0.03
+        pos_hint: {"x":0.05, "top":0.5}
+        background_color: 0.5, 0.5, 0, 1
+
+
+
+    Button:
+        size_hint: 0.45,0.08
+        pos_hint: {"x":0.05, "top":0.465}
+        text:'Load Image'
+        font_size: 17
+        on_release: root.show_load()
+    Button:
+        size_hint: 0.45,0.08
+        pos_hint: {"x":0.5, "top":0.465}
+        text:"Translate"
+        font_size: 17
+        on_release: root.Trans_act()
+    Button:
+        id:btn_scr
+        size_hint: 0.45,0.08
+        pos_hint: {"x":0.05, "top":0.385}
+        text:"Source Language"
+        font_size: 17
+        on_release: root.select_lang_ocr()
+    Button:
+        id:btn_des
+        size_hint: 0.45,0.08
+        pos_hint: {"x":0.5, "top":0.385}
+        text:'Destination Language'
+        font_size: 17
+        on_release: root.select_lang_trans()
+
+
+    Label:
+        size_hint: 0.9,0.08
+        pos_hint: {"x":0.08, "top":0.28}
+        text_size: self.size
+        halign: 'left'
+        color: 1, 1, 1, 1
+        text:'for ony text translation'
+    TextInput:
+        id:text_input1
+        size_hint: 0.6,0.057
+        pos_hint: {"x":0.053, "top":0.196}
+        multiline: False
+    Button:
+        size_hint: 0.295,0.057
+        pos_hint: {"x":0.653, "top":0.196}
+        text:'Translate text'
+        #font_size: 17
+        on_release: root.only_text()
+
+
+    BackgroundLabel:
+        size_hint: 0.15,0.08
+        pos_hint: {"x":0.053, "top":0.132}
+        text: 'Output'
+        background_color: 0.5, 0.25, 0.6, 1
+
+    BackgroundLabel:
+        id:text_out
+        size_hint: 0.743,0.08
+        pos_hint: {"x":0.2045, "top":0.132}
+        text: 'Output Here'
+        color: 0, 0, 0, 1
+        background_color: 1, 1, 1, 0.6
+
+
+<LoadDialog>:
+    filechooser: filechooser
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserIconView:
+            id: filechooser
+            path: ""
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.selection)
+
+
+<LangDialog>:
+
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0, "top":1}
+        text:"Hindi"
+        on_release: root.lang("hin",'hindi')
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.25, "top":1}
+        text:"Gujrati"
+        on_release: root.lang("guj",'Gujrati')
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.5, "top":1}
+        text:"French"
+        on_release: root.lang("fra",'French')
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.75, "top":1}
+        text:"English"
+        on_release: root.lang("eng",'English')
+
+
+
+
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0, "top":0.85}
+        text:"a"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.25, "top":0.85}
+        text:"d"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.5, "top":0.85}
+        text:"s"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.75, "top":0.85}
+        text:"q"
+
+
+
+
+    Button:
+        size_hint: 0.8,0.1
+        pos_hint:{"x":0.1, "top":0.15}
+        text:"Cancel"
+        on_release: root.cancel()
+
+
+
+<TraLangDialog>:
+
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0, "top":1}
+        text:"English"
+        on_release: root.lang("en",'English')
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.25, "top":1}
+        text:"French"
+        on_release: root.lang("fr",'French')
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.5, "top":1}
+        text:"s"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.75, "top":1}
+        text:"q"
+
+
+
+
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0, "top":0.85}
+        text:"a"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.25, "top":0.85}
+        text:"d"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.5, "top":0.85}
+        text:"s"
+    Button:
+        size_hint: 0.25,0.15
+        pos_hint:{"x":0.75, "top":0.85}
+        text:"q"
+
+
+
+
+
+
+
+    Button:
+        size_hint: 0.8,0.1
+        pos_hint:{"x":0.1, "top":0.15}
+        text:"Cancel"
+        on_release: root.cancel()
+
+
